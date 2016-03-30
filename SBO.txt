@@ -1,0 +1,17 @@
+﻿IssueMaster thêm cột Type(int)
+ReceiptMaster thêm cột Type(int)
+
+ALTER PROC Post2InventoryTransaction
+CREATE TRIGGER tg_ReceiptMaster
+
+ALTER PROC SboManage.dbo.ReportReceipts
+ALTER PROC TIG_Yakimono_App.dbo.ReportReceipts
+
+ALTER PROC SboManager.dbo.ReportIssue
+ALTER PROC TIG_Yakimono_App.dbo.ReportIssue
+
+CREATE PROC SboManager.dbo.ReportReceiptsSummary
+CREATE PROC TIG_Yakimono_App.dbo.ReportReceiptsSummary
+
+CREATE PROC SboManager.dbo.ReportIssueSummary
+CREATE PROC TIG_Yakimono_App.dbo.ReportIssueSummary

@@ -1,0 +1,19 @@
+﻿ELSE
+	BEGIN
+		
+		declare @Y int=1
+		DECLARE @STR nvarchar(Max)='',@Header nvarchar(max)='',@Code nvarchar(max)='',@Result nvarchar(max)=''
+		SET @STR='DECLARE @DataMail NVARCHAR(MAX)='''' '+CHAR(13)
+
+		SET @Header=N'<tr><th>Nội dung</th>'
+		WHILE(@Y <= @ToMonth)
+		BEGIN
+			SET @Header=@Header+N'<th>Tháng '+LTRIM(RTRIM(STR(@Y)))+'</th>'
+			SET @Code=@Code+N',RTRIM(format(isnull(Month'+LTRIM(RTRIM(STR(@Y)))+',0),''N0'')) AS ''td-alr'','''''
+			SET @Y=@Y+1
+		END
+		SET @Result=@STR+'SELECT @DataMail= N'+CHAR(39)+@Header+CHAR(39)+' + CONVERT(nvarchar(max), (select RTRIM(Description) AS ''td'','''''+@Code
+		SET @Result=@Result+' FROM (select 0 as UnitID,* from #tmp1 union select 1 as UnitID,* from #tmp2 union select 1 as UnitID,* from #tmp3) as tbl order by UnitID FOR XML PATH(''tr''), ELEMENTS'
+		SET @Result=@Result+'))'+CHAR(13)+'SELECT @DataMail AS DataMail,Filter=N'+CHAR(39)+N'Đến tháng '+LTRIM(RTRIM(STR(@ToMonth)))+N' năm '+LTRIM(RTRIM(STR(@Year)))+N';Đơn vị: '''
+		exec(@Result)
+	END
